@@ -1,0 +1,85 @@
+# Discord VPN Shop Bot
+
+บอท Discord ที่พอร์ตจาก Telegram bot เดิม โดยยังใช้ SQLite และ 3x-ui API เดิม
+
+## ติดตั้งบน VPS แบบคำสั่งเดียว
+
+รันคำสั่งนี้ใน VPS ได้เลย:
+
+```bash
+git clone https://github.com/Phechr2554/Discord-shop3x.git && cd Discord-shop3x && chmod +x install_vps.sh && sudo ./install_vps.sh
+```
+
+สคริปต์จะ:
+- ติดตั้ง Python และ dependencies ที่จำเป็น
+- สร้าง virtual environment
+- ให้กรอกค่า `.env` ทีละช่อง
+- สร้าง systemd service
+- เปิดบอทให้รันทันทีและบูตอัตโนมัติหลังเครื่องรีสตาร์ต
+
+## ไฟล์ที่ต้องเตรียม
+
+ก่อนรัน ให้เตรียมข้อมูลเหล่านี้ไว้:
+- Discord bot token
+- Discord user ID ของแอดมิน
+- 3x-ui URL
+- 3x-ui API token หรือ username/password สำหรับ login แบบ session
+- AIS inbound ID
+- TRUE inbound ID
+- เบอร์ wallet สำหรับรับเงิน
+- ตำแหน่งฐานข้อมูล SQLite (ค่ามาตรฐานคือ `/data/bot.db`)
+
+## คำสั่งรันหลัก
+
+- `!start`
+- `!mycredit`
+- `!checkprice`
+- `!addclient`
+- `!freeclient`
+- `!mycodes`
+- `!addmycredit`
+- `!entercode`
+
+## คำสั่งแอดมิน
+
+- `!addcredits @user 10`
+- `!deletecredits @user 10`
+- `!setprice 2`
+- `!settingsmycredit`
+- `!setangpaophone 0xxxxxxxxx`
+- `!setangpaorate 1.5`
+- `!checkangpaophone`
+- `!toggleaddclient`
+- `!buydm`
+- `!nobuydm`
+- `!openfreeclient`
+- `!offfreeclient`
+- `!freeclientlimit 1`
+- `!freeclienttime 1`
+- `!freeclientresettime midnight`
+- `!resetfreeclientlimit @user`
+- `!addcode`
+- `!deletecode ชื่อโค้ด`
+- `!checkcode`
+- `!statuscode on`
+- `!checkusercode ชื่อโค้ด`
+- `!logbuy @user`
+- `!logfree @user`
+- `!logbuyall`
+- `!logfreeall`
+
+## รันแบบ manual
+
+ถ้าไม่อยากใช้ service ให้รันเองได้ด้วย:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+python main.py
+```
+
+## หมายเหตุ
+
+- คำสั่งย่อยส่วนใหญ่ใช้ข้อความโต้ตอบแบบทีละขั้นในห้องแชท
+- ลิงก์/โค้ด VPN และเครดิตยังใช้ฐานข้อมูลเดิม
+- ถ้าต้องการแปลงเป็น slash commands แบบแท้ ๆ ของ Discord เพิ่มได้ภายหลัง
